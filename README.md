@@ -1,5 +1,7 @@
 libepub
-======================= 
+=======================  
+
+an epub python library.
 
 
 example:
