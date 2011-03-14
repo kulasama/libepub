@@ -29,7 +29,7 @@ class EPub(object) :
             
         return chapters
         
-    def get_chapter_content(self,chapter_id):
+    def read_content(self,chapter_id):
         fname = '%s.html' % chapter_id
         buf = self.o.read(fname) 
         buf_soap = BeautifulSoup(buf,fromEncoding='utf8') 
@@ -56,8 +56,9 @@ class EPubTestCase(unittest.TestCase):
         self.assertEqual(author,u'弥赛亚')   
         chapters = epub.chapters() 
         chapter = chapters[0]  
-        content = epub.get_chapter_content(chapter['id']) 
-        
+        self.assertEqual(chapter,{'label': u'Chapter_1', 'playorder': u'1', 'id': u'article_102774_1', 'class': u'chapter'})
+        content = epub.read_content(chapter['id'])
+      
 
         
         
