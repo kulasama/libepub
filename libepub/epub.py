@@ -17,7 +17,16 @@ class EPub(object) :
         return unicode(self.soap.ncx.docauthor.text.string)  
         
     def chapters(self):
-        chapters = self.soap.findAll('navpoint',{'class':'chapter'})    
+        navpoints = self.soap.findAll('navpoint',{'class':'chapter'})   
+        chapters = []
+        for point in navpoints: 
+            chapter = {}
+            chapter['id'] = point['id']
+            chapter['class'] = point['class']
+            chapter['playorder'] = point['playorder']
+            chapter['label'] = unicode(point.navlabel.text.string)
+            chapters.append(chapter)
+            
         return chapters
         
     def get_chapter_content(self,chapter_id):
@@ -47,7 +56,8 @@ class EPubTestCase(unittest.TestCase):
         self.assertEqual(author,u'弥赛亚')   
         chapters = epub.chapters() 
         chapter = chapters[0]  
-        content = epub.get_chapter_content(chapter['id'])  
+        content = epub.get_chapter_content(chapter['id']) 
+        
 
         
         
