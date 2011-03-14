@@ -1,4 +1,20 @@
-a epub library. written with python.      
+an epub  python library.    
+
+
+example:
+
+[code]
+epubfile = '../tests/犹太商人羊皮卷.epub'
+epub = EPub(epubfile)
+title = epub.title()      
+self.assertEqual(title,u'犹太商人羊皮卷')  
+author = epub.author()
+self.assertEqual(author,u'弥赛亚')   
+chapters = epub.chapters() 
+chapter = chapters[0]  
+self.assertEqual(chapter,{'label': u'Chapter_1', 'playorder': u'1', 'id': u'article_102774_1', 'class': u'chapter'})
+content = epub.read_content(chapter['id'])   
+[/code]
 
 
 

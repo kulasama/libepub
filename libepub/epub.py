@@ -57,7 +57,8 @@ class EPubTestCase(unittest.TestCase):
         chapters = epub.chapters() 
         chapter = chapters[0]  
         self.assertEqual(chapter,{'label': u'Chapter_1', 'playorder': u'1', 'id': u'article_102774_1', 'class': u'chapter'})
-        content = epub.read_content(chapter['id'])
+        content = epub.read_content(chapter['id'])   
+        print content
       
 
         
