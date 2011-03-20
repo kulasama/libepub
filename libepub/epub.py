@@ -58,7 +58,18 @@ class EPubTestCase(unittest.TestCase):
         chapter = chapters[0]  
         self.assertEqual(chapter,{'label': u'Chapter_1', 'playorder': u'1', 'id': u'article_102774_1', 'class': u'chapter'})
         content = epub.read_content(chapter['id'])   
-        print content
+                
+        
+    def test_langping(self):
+        epubfile = '../tests/郎咸平说：我们的日子为什么这么难.epub' 
+        epub = EPub(epubfile)
+        title = epub.title()
+        self.assertEqual(title,u'郎咸平说：我们的日子为什么这么难')
+        author = epub.author()
+        self.assertEqual(author,u'郎咸平') 
+        chapters = epub.chapters()  
+        chapter = chapters[0]
+        self.assertEqual(chapter,{'label': u'Chapter_1', 'playorder': u'1', 'id': u'article_42881_1', 'class': u'chapter'})                  
       
 
         
