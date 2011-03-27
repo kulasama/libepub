@@ -2,13 +2,21 @@
 import unittest     
 import zipfile
 from BeautifulSoup import BeautifulStoneSoup,BeautifulSoup
+import hashlib
 
 class EPub(object) :
     
-    def __init__(self,path):
+    def __init__(self,path):   
+        self.path = path
         self.o = zipfile.ZipFile(path, mode='r') 
         buf = self.o.read('toc.ncx')      
-        self.soap = BeautifulStoneSoup(buf, fromEncoding='utf8')  
+        self.soap = BeautifulStoneSoup(buf, fromEncoding='utf8')      
+    
+    def md5(self):
+        f = open(self.path,'r')
+        body = f.read()
+        md5 = hashlib.md5(body).hexdigest()
+        return md5
         
     def title(self):  
         return unicode(self.soap.ncx.doctitle.text.string)     
@@ -65,7 +73,8 @@ class EPubTestCase(unittest.TestCase):
         epub = EPub(epubfile)
         title = epub.title()
         self.assertEqual(title,u'郎咸平说：我们的日子为什么这么难')
-        author = epub.author()
+        author = epub.author()         
+        self.assertEqual(epub.md5(),'d57dd62cd7db9efec99e0e3a0adb9cd3')
         self.assertEqual(author,u'郎咸平') 
         chapters = epub.chapters()  
         chapter = chapters[0]
